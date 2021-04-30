@@ -1,0 +1,182 @@
+[
+    {
+        "type": "text",
+        "text": "Partile componente a oricarui calculator sunt: ",
+        "possibilities": [
+            {
+                "answer": "Hardware si Software"
+            },
+            {
+                "answer": "Hardware"
+            },
+            {
+                "answer": "Software"
+            },
+            {
+                "answer": "Mouse-ul"
+            }
+        ],
+        "selected": null,
+        "correct": null
+    },
+    {
+        "type": "text",
+        "text": "Care din urmatoarele constituie o componenta periferica ?",
+        "possibilities": [
+            {
+                "answer": "Placa de baza"
+            },
+            {
+                "answer": "Monitor"
+            },
+            {
+                "answer": "Placa video"
+            },
+            {
+                "answer": "Editor de text"
+            }
+        ],
+        "selected": null,
+        "correct": null
+    },
+    {
+        "type": "text",
+        "text": "Care este avantajul unui calculator laptop fata de un calculator stationar ?",
+        "possibilities": [
+            {
+                "answer": "Portabilitate"
+            },
+            {
+                "answer": "Nu are avantaje"
+            },
+            {
+                "answer": "Puterea de calcul"
+            },
+            {
+                "answer": "Frumusetea"
+            }
+        ],
+        "selected": null,
+        "correct": null
+    },
+    {
+        "type": "image",
+        "text": "Care din imaginele urmatoare reprezinta un Procesor(CPU) ?",
+        "possibilities": [
+            {
+                "answer": "data/motherboard.jpeg"
+            },
+            {
+                "answer": "data/desktop-computer.jpeg"
+            },
+            {
+                "answer": "data/cpu.processor-1.jpeg"
+            },
+            {
+                "answer": "data/laptop-computer.jpeg"
+            }
+        ],
+        "selected": null,
+        "correct": null
+    },
+    {
+        "type": "text",
+        "text": "Pe o unitate de stocare(Hard disk) datele sunt: ",
+        "possibilities": [
+            {
+                "answer": "Stocat pe termen lung"
+            },
+            {
+                "answer": "Stocate pe termen scurt"
+            },
+            {
+                "answer": "Pierdute daca deconectam calculatorul"
+            },
+            {
+                "answer": "Salvate in procesor"
+            }
+        ],
+        "selected": null,
+        "correct": null
+    },
+    {
+        "type": "text",
+        "text": "Unitatea de alimentare (PSU) unui calculator are sarcina: ",
+        "possibilities": [
+            {
+                "answer": "De a converti puterea de la priza la puterea necesara de lucru al procesorului"
+            },
+            {
+                "answer": "Sa lucreze"
+            },
+            {
+                "answer": "Sa proceseze informatia"
+            },
+            {
+                "answer": "De a converti puterii de la priza la puterea necesara de lucru al fiecarei componente al calculatorului"
+            }
+        ],
+        "selected": null,
+        "correct": null
+    },
+    {
+        "type": "text",
+        "text": "Care din urmatoarele variante de raspuns reprezinta o componenta de tip 'software' al unui calculator: ",
+        "possibilities": [
+            {
+                "answer": "Browser Web (navigator internet)"
+            },
+            {
+                "answer": "Monitor"
+            },
+            {
+                "answer": "Printer"
+            },
+            {
+                "answer": "Camera Web"
+            }
+        ],
+        "selected": null,
+        "correct": null
+    },
+    {
+        "type": "image",
+        "text": "Care componenta din imaginele indicare are sarcina de a stoca informatia pe termen scurt ?",
+        "possibilities": [
+            {
+                "answer": "data/hard-drive.jpeg"
+            },
+            {
+                "answer": "data/ram.jpeg"
+            },
+            {
+                "answer": "data/psu.jpeg"
+            },
+            {
+                "answer": "data/cpu.processor-1.jpeg"
+            }
+        ],
+        "selected": null,
+        "correct": null
+    },
+    {
+        "type": "text",
+        "text": "Daca nu am nici un card de expansiune instalat pe placa de baza atunci: ",
+        "possibilities": [
+            {
+                "answer": "Este necesar sa cumpar deoarece calculatorul nu va functiona corect"
+            },
+            {
+                "answer": "Nu ma alarmez deoarece majoritatea plăcilor de bază au funcții video, sunet, rețea și alte funcții încorporate."
+            },
+            {
+                "answer": "Nustiu ce sa fac"
+            },
+            {
+                "answer": "Trebuie sa ma adresez la serviciul de raparatie al calculatoarelor"
+            }
+        ],
+        "selected": null,
+        "correct": null
+    }
+]

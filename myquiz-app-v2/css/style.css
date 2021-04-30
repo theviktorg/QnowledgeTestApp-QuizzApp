@@ -1,0 +1,36 @@
+.selected_answer {
+    background-color: rgb(22, 120, 194) !important; 
+    color : white !important; 
+}
+.image_selected_answer {
+    border: 3px solid rgb(22, 120, 194) !important;
+    
+}
+.wrong_answer {
+    background-color: rgb(255, 227, 227) !important;
+    border: 5px solid rgb(255, 227, 227) !important; 
+}
+.correct_answer {
+    background-color: rgb(239, 250, 222) !important;
+    border: 5px solid rgb(239, 250, 222) !important;
+}
+
+::-webkit-scrollbar-thumb:horizontal{
+    background: #cfcfcf !important;
+    border-radius: 5px !important;
+}
+
+.progress_bar {
+    overflow:visible;
+}
+
+.gradient_styled {
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,254,230,1) 30%, rgba(251,254,210,0.9668067910758054) 60%, rgba(255,255,243,1) 90%, rgba(255,255,255,1) 100%) !important;
+}
+
+@media only screen and (max-width: 768px){
+    .progress_bar{
+        overflow-x:scroll !important;
+    
+    }
+}

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html ng-app="quizApp" lang="ro">
+    <head>
+        <title>MyQuizApp</title>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
+    </head>
+    <body>
+	<div class="ui padded basic segment container">
+		
+		<!--Knowlege mode-->
+		<div ng-controller="listCtrl as list" ng-hide="list.quizMetrics.quizActive || list.quizMetrics.resultsActive">
+			<div class="ui stackable grid ">
+				<div class="two column row">
+					<div class="thirteen wide column">
+						<div class="ui blue huge header"><em>Ce este un calculator ?</em> <br>
+							<strong>Aici afli raspunsul la aceasta intrebare ! <br> 
+							<span class="ui red text">+</span> <em>iti poti testa cunostintele!</em> </strong> 
+						</div>
+					</div>
+					<div class="three wide right aligned column">
+						<p>
+							<div class="ui fluid icon input focus">
+								<input type="text" placeholder="Eu caut..." ng-model="list.search">
+								<i class="search icon"></i>
+							</div>
+						</p>
+						<p>
+							<div class="ui fluid labeled icon green button" ng-click="list.activateQuiz()">
+							<i class="ui edit outline icon"></i> Doresc sa-mi testez cunostintele !
+							</div>
+						</p>
+					</div>
+				</div>
+			</div>
+			<di class="ui divider"></di>
+			<h3>
+				<p>
+					Fie că ați startat primului vostru calculator sau căutați doar să aflați mai multe despre 
+					modul în care acesta funcționează, in aceasta pagina veți găsi informațiile de baza 
+					de care aveți nevoie sa înțelegeti "Ce este un calculator".
+					La fel aveti si posibilitatea a va testa cunostinele obtinute!
+				</p>	
+			</h3>
+			<div class="ui divider"></div>
+			<div class="ui basic segment">
+				<div class="ui three stackable cards">
+					<div class="card" ng-repeat="information in list.data | filter : list.search">
+						<div class="blurring dimmable image">
+							<div class="ui dimmer">
+								<div class="content">
+									<div class="center">
+										<div class="ui description inverted button" 
+										ng-click="list.changeActiveComponent(information)">Detalii</div>
+									</div>
+								</div>
+							</div>
+								<img ng-src="{{information.image_url}}" alt="">
+						</div>
+						<div class="content">
+							<a class="header" href="">{{information.type}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui modal">
+				<i class="close icon"></i>
+				<div class="ui header"><h2><em>{{list.activeComponent.type}}</em></h2></div>
+				<div class="content">
+					<div class="ui stackable grid">
+						<div class="two column row">
+							<div class="column"><img class="ui image" 
+								ng-src="{{list.activeComponent.image_url}}"></div>
+							<div class="column">
+								<div class="description">
+								<h3>{{list.activeComponent.description}}</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="actions">
+					<div class="ui positive right labeled icon button">
+					OK
+					<i class="checkmark icon"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Quiz mode-->
+		<div class="" ng-controller="QuizCtrl as quiz" ng-show="quiz.quizMetrics.quizActive">
+			<div class="ui stackable grid">
+				<div class="two column row">
+					<div class="column left aligned progress_bar">
+						<h3><b>Progresul testului: </b> </h3> 
+						<table class="ui very basic celled center aligned unstackable table">
+							<tbody>
+								<tr >
+									<td ng-repeat="quiz in quiz.DataService.quizQuestions">
+										<h3>{{$index + 1}}</h3>
+									</td>
+								</tr>
+								<tr >
+									<td ng-repeat = "question in quiz.DataService.quizQuestions">
+										<div ng-class="{'ui green icon button': question.selected !==null, 
+														'ui red icon button': question.selected === null}" 
+											ng-click="quiz.setActiveQuestion($index)">
+										<i ng-class="{'check icon': question.selected !== null, 
+														'ban icon': question.selected === null}"></i>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="column center aligned">
+						<h3><b>Grila de ajutor: </b></h3>
+						<p>
+							<div class="ui tiny labeled icon button red">
+								<i class="ban icon"></i>
+								Intrebare incompletata
+							</div>
+						</p>
+						<p>
+							<div class="ui tiny labeled icon button green">
+								<i class="check icon"></i>
+								Intrebare completata
+							</div>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="ui icon error message" ng-show="quiz.error">
+				<i class="close icon" ng-click="quiz.error = false"></i>
+				<div class="content">
+					<div class="header"> 
+						<i class="ui exclamation circle icon"></i>
+						 Atentie - Aveti intrebari fara raspuns!
+					</div>
+				</div>
+			</div>
+			<div class="ui divider"></div>
+			<div class="ui basic segment" ng-hide="quiz.finalise">
+				<h2>{{quiz.activeQuestion + 1 + ". "+ quiz.DataService.quizQuestions[quiz.activeQuestion].text}}</h2>
+				<div class="ui basic padded segment">
+					<div class="ui two cards" ng-if="quiz.DataService.quizQuestions[quiz.activeQuestion].type === 'text'">
+						<div class="ui card" ng-repeat="answer in quiz.DataService.quizQuestions[quiz.activeQuestion].possibilities"
+							ng-class="{'raised selected_answer': $index === quiz.DataService.quizQuestions[quiz.activeQuestion].selected}"
+							ng-click="quiz.selectAnswer($index)">
+							<div class="content">
+								<h3>{{answer.answer}}</h3>	
+							</div>
+						</div>
+					</div>
+					<div class="ui two cards" ng-if="quiz.DataService.quizQuestions[quiz.activeQuestion].type === 'image'">
+						<div class="ui card"	
+								ng-class="{'raised image_selected_answer': $index === quiz.DataService.quizQuestions[quiz.activeQuestion].selected}" 
+								ng-repeat="answer in quiz.DataService.quizQuestions[quiz.activeQuestion].possibilities"
+								ng-click="quiz.selectAnswer($index)">
+							<div class="content">
+								<img class="ui image" ng-src="{{answer.answer}}" > 
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ui divider"></div>
+				<div class="ui labeled green button icon" ng-click="quiz.questionAnswered()">
+					<i class="check icon"></i>
+					OK
+				</div>
+			</div>
+			<div class="ui big message icon" ng-show="quiz.finalise">
+				<i class="blue info icon"></i>
+				<div class="content">
+					<h2 class="header">Ati finisat testul ! Sunteti sugur de raspunsurile date? </h2>
+					<p>
+						<div class="ui labeled icon green button" ng-click="quiz.finaliseAnswers()">
+							<i class="check icon"></i>
+							Da 
+						</div>
+						<div class="ui labeled icon red button" ng-click="quiz.finalise = false">
+							<i class="redo icon"></i>
+							Nu 
+						</div>
+					</p>
+				</div>
+			</div>
+		</div>
+		<!--Quiz Result mode-->
+		<div class="basic segment" ng-controller="resultsCtrl as results" ng-show="results.quizMetrics.resultsActive">
+			<h3 class="ui horizontal divider header">
+				<i class="edit icon"></i>
+				Rezultatul Testului
+			</h3>
+			<div class="ui stackable grid">
+				<div class="two column row">
+					<div class="column left aligned progress_bar">  
+						<table class="ui very basic celled center aligned unstackable table">
+							<tbody>
+								<tr><td ng-repeat="question in results.DataService.quizQuestions">
+									<h3><strong>{{$index + 1}}</strong></h3>
+									</td>
+								</tr>
+								<tr>
+									<td ng-repeat="question in results.DataService.quizQuestions">
+										<div ng-class="{'ui green icon button': question.correct, 
+														'ui red icon button': !question.correct}"
+												ng-click="results.setActiveQuestion($index)">
+											<i ng-class="{'check icon': question.correct , 
+														'ban icon': !question.correct}"></i>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table> 
+					</div>
+					<div class="column center aligned">
+						<h3><i class="blue info circle icon"></i></i> 
+							<strong>Rezultatul obtinut: <br> 
+								{{results.quizMetrics.numCorrect}} / {{results.DataService.quizQuestions.length}}
+							</strong>
+						</h3>
+						<h3><em><strong>Rata de cunoastere: {{results.calculatePerc() | number:2}} %</strong></em></h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column left aligned">
+						<h3><b><i class="blue info circle icon"></i> Grila ghidativa: </b></h3>
+						<div class="ui labeled icon button red">
+							<i class="ban icon"></i>
+							Intrebare cu raspuns gresit
+						</div><br><br>
+						<div class="ui labeled icon button green">
+							<i class="check icon"></i>
+							Intrebare cu raspuns corect
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui divider"></div>
+			<div class="ui basic segment">
+				<h2>{{results.activeQuestion + 1 + ". "+ results.DataService.quizQuestions[results.activeQuestion].text}}</h2>
+				<div class="ui basic padded segment">
+					<div class="ui two cards" ng-if="results.DataService.quizQuestions[results.activeQuestion].type === 'text'">
+						<div class="ui card" ng-repeat="answer in results.DataService.quizQuestions[results.activeQuestion].possibilities" 
+							ng-class="results.getAnswerClass($index)">
+							<div class="content">
+								<p>{{answer.answer}}</p>	
+								<p ng-show="$index !== results.quizMetrics.correctAnswers[results.activeQuestion] && 
+											$index === results.DataService.quizQuestions[results.activeQuestion].selected">
+								<strong><i class="red ban icon"></i> Raspunsul dat</strong></p>
+								<p ng-show="$index === results.quizMetrics.correctAnswers[results.activeQuestion]">
+								<strong><i class="green check icon"></i> Raspunsul corect</strong></p>
+							</div>
+						</div>
+					</div>
+					<div class="ui two cards" ng-if="results.DataService.quizQuestions[results.activeQuestion].type === 'image'">
+						<div class="ui card" ng-repeat="answer in results.DataService.quizQuestions[results.activeQuestion].possibilities" 
+							ng-class="results.getAnswerClass($index)">
+							<div class="content">
+								<p><img class="ui image" ng-src="{{answer.answer}}"> </p>	
+								<p ng-show="$index !== results.quizMetrics.correctAnswers[results.activeQuestion] && 
+											$index === results.DataService.quizQuestions[results.activeQuestion].selected">
+											<strong><i class="red ban icon"></i> Raspunsul dat</strong></p>
+								<p ng-show="$index === results.quizMetrics.correctAnswers[results.activeQuestion]">
+									<strong><i class="green check icon"></i> Raspunsul corect</strong></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui divider"></div>
+			<h3 class="ui big fluid icon orange button" ng-click="results.restart()">
+				<i class="sync icon"></i>
+				Incepe din nou testul
+			</h3>
+		</div>
+	</div>
+        
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script
+			src="https://code.jquery.com/jquery-3.6.0.js"
+			integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+			crossorigin="anonymous"></script>  
+	<script src="js/app.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/controllers/list.js"></script>
+	<script src="js/controllers/quiz.js"></script>
+	<script src="js/controllers/results.js"></script>
+	<script src="js/factory/quizMetrics.js"></script>
+	<script src="js/factory/dataservice.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
+     
+    </body>
+</html>
